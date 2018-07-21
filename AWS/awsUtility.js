@@ -8,7 +8,7 @@ var moment =require('moment');
 module.exports =class AwsService {
 
     constructor(){
-        AWS.config.update({region: 'us-west-2'});
+        AWS.config.loadFromPath('./keys/config.json');
          this.dydb = new AWS.DynamoDB();
     }
 
