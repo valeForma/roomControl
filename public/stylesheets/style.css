@@ -1,0 +1,72 @@
+
+
+a {
+  color: #00B7FF;
+}
+.myFloating {
+
+  bootom:3% !important;
+  right:4% !important;
+}
+.myFirstRow {
+color: white !important;
+}
+.badge {
+  color:white !important;
+  border: 1px solid white;
+}
+.myLi {
+  padding-top: 5% !important;
+  padding-bottom: 3% !important;
+}
+body {
+  padding-right: 1% !important;
+  padding-left: 1% !important;
+  background-color: #65ccb8;
+  padding-top: 1% !important;
+}
+.myToast {
+  border-radius: 12px;
+  background-color: transparent;
+}
+.brand-logo{
+  padding-left: 3%;
+}
+.myNav{
+  width: 90%;
+  margin-left: 3%;
+  background-color: #57ba98;
+  color: white;
+
+}
+.sidenav{
+  max-widtht: 60%;
+}
+#mobile  *{
+  background-color: #57ba98;
+  color: white;
+}
+#mobile{
+  max-width: 80%;
+  background-color: #57ba98;
+}
+.card-content{
+  background-color: #f2f2f2;
+}
+#modal1{
+  background-color: #f2f2f2;
+}
+myButton{
+  background-color: #3b9458;
+}
+.collapsible-header{
+  text-align: center!important;
+  background-color: #57ba98!important;
+  color: white;
+}
+.collapsible-body{
+  background-color: #f2f2f2;
+}
+.modal-footer{
+  background-color: #65ccb8!important;
+}

@@ -1,0 +1,23 @@
+var awsIot = require('aws-iot-device-sdk');
+var deviceID="raspberryPI1"
+module.exports = class AwsDevice{
+
+    constructor(){
+        this.device = awsIot.device({
+            keyPath: './keys/raspberry.private.key',
+            certPath:'./keys/raspberry.cert.pem',
+            caPath: './keys/root-CA.crt',
+            clientId: 'server',
+            host: 'a3c2iyi0nzmfll.iot.us-west-2.amazonaws.com'
+        });
+    }
+   sendLightOption(payload){
+        console.log("publishing.........");
+       this.device.publish('/light/control',JSON.stringify(payload));
+   }
+    sendOption(payload){
+        console.log("publishing.........");
+        payload.deviceID=deviceID;
+        this.device.publish('/room/options',JSON.stringify(payload));
+    }
+}

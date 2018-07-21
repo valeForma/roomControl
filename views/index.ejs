@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <!--Import materialize.css-->
+
+
+     <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" />
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" ></script>
+
+     </head>
+  <body>
+  <div class="navbar-fixed">
+     <nav class="myNav">
+       <div class="nav-wrapper">
+         <a href="#!" class="brand-logo center-align" >My Room</a>
+         <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+         <ul class="right hide-on-med-and-down">
+           <li><a href="#doorCard">Door state</a></li>
+           <li><a href="#roomCard">Room state</a></li>
+           <li><a href="#lightCard">Lights State</a></li>
+
+         </ul>
+       </div>
+     </nav>
+  </div>
+   <ul class="collection sidenav" id="mobile">
+     <li>
+       <div class="background">
+         <img src="/images/room.jpeg">
+       </div>
+     </li>
+     <li></li>
+     <li class="sidenav-close collection-item"><a href="#doorCard">Door state</a></li>
+     <li class="sidenav-close collection-item"><a href="#roomCard">Room state</a></li>
+     <li class="sidenav-close collection-item"><a href="#lightCard">Lights State</a></li>
+     <li></li>
+   </ul>
+   <div class=" fixed-action-btn">
+     <a class="  btn-floating btn-large myButton">
+       <i class=" fas fa-angle-up"></i>
+     </a>
+     <ul>
+       <li><a class="btn-floating   modal-trigger" href="#modal1"><i class=" fas fa-sliders-h myButton"></i></a></li>
+     </ul>
+   </div>
+   <div class="row">
+     <div class="col s12 m10 offset-m1 l8 offset-l2 " >
+       <div id="roomCard" class="card z-depth-5">
+         <div class="card-image waves-effect waves-block waves-light">
+           <img class="activator" src="/images/room.jpeg">
+         </div>
+         <div class="card-content center-align">
+           <span class="card-title activator grey-text text-darken-4">Room State<i class="fas fa-eye right"></i></span>
+           <div class="row">
+             <div class="input-field col s12 m10 l8 offset-l2 offset-m1 ">
+               <i class="fas fa-calendar prefix"></i>
+               <input type="text" id="datepicker1" class="datepicker center-align">
+
+               <label class="" for="datepicker1">pick starting date for  data collect</label>
+
+             </div>
+           </div>
+
+         </div>
+         <div class="card-reveal  ">
+           <div class="row center-align">
+             <span class="card-title grey-text text-darken-4 ">Room Detail<i class="fas fa-eye-slash right"></i></span>
+           </div>
+           <div class="row">
+             <div class="col s12 l10 m10 offset-l1 offset-m1 center-align ">
+               <ul class="collapsible">
+                 <li>
+                   <div class="collapsible-header"><i class="fas fa-filter"></i>Filters</div>
+                   <div class="collapsible-body">
+                     <div class="row">
+                       <div class="input-field col s12 m6 l4 ">
+                         <input class="center-align col s4 offset-s4" onchange="roomFilter()" type="number" name="tempFilter" id="tempFilter" value="0" min="0" max="80">
+                         <label class="enter-align" for="tempFilter">temp. greater than...</label>
+                       </div>
+                       <div class="input-field col s12 m6 l4 ">
+                         <input class="center-align col s4 offset-s4" onchange="roomFilter()" type="number" name="humFilter" id="humFilter" value="0" min="0" max="100">
+                         <label class="center-align" for="humFilter">Hum. greater than...</label>
+                       </div>
+                       <div class="input-field col s12 m6 l4 ">
+                         <input class="center-align col s4 offset-s4"  onchange="roomFilter()" type="number" name="luxFilter" id="luxFilter" value="0" min="0" max="100">
+                         <label class="enter-align" for="luxFilter">Lux greater than...</label>
+                       </div>
+                       <hr class=" col s10 m10 l10 offset-s1 offset-l1 offset-m1">
+                       <small class=" col s12 l12 m12">set to 0 to remove filter</small>
+                     </div>
+                   </div>
+                 </li>
+               </ul>
+             </div>
+           </div>
+           <script id="template_room" type="text/template">
+
+             <ul class="collection">
+               {{#room}}
+               <li class="myLi collection-item">
+                 <div class="row">
+                     <div class="col s12 l6 m6">
+                       <i class="far fa-calendar-alt"></i>
+                       date
+                       <span class=" badge   teal lighten-2">{{date}}</span>
+                     </div>
+                     <hr class="col s6 offset-s3 hide-on-med-and-up">
+                     <div class="col s12 l6 m6">
+                       <i class="fas fa-lightbulb"></i>
+                       Lux
+                       <span class=" badge yellow lighten-2 ">{{lux}}</span>
+                     </div>
+                   </div>
+                 <hr class="col s6 offset-s3 hide-on-med-and-up">
+                 <div class="row">
+                   <div class="col s12 l6 m6">
+                     <i class="fas fa-thermometer"></i>
+                     temp.
+                     <span class=" badge  red lighten-2">{{temperature}} C°</span>
+                   </div>
+                   <hr class="col s6 offset-s3 hide-on-med-and-up">
+                   <div class="col s12 l6 m6">
+                     <i class="fas fa-thermometer-empty"></i>
+                     Hum.
+                     <span class=" badge purple lighten-2 ">{{humidity}} %</span>
+                   </div>
+                 </div>
+               </li>
+               {{/room}}
+             </ul>
+           </script>
+           <div id="myroom" class="col s12 m12 l12"></div>
+
+         </div>
+
+       </div>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col s12 m8 l5  offset-m2">
+       <div id="doorCard" class="card z-depth-5">
+         <div class="card-image waves-effect waves-block waves-light">
+           <img class="activator" src="/images/door.jpeg">
+         </div>
+         <div class="card-content center-align">
+           <span class="card-title activator grey-text text-darken-4">Door State<i class="fas fa-eye right"></i></span>
+           <div class="row">
+             <div class="input-field col s12 m10 l8 offset-l2 offset-m1 ">
+               <i class="fas fa-calendar prefix"></i>
+               <input type="text" id="datepicker2" class="datepicker center-align">
+
+               <label for="datepicker2">pick starting date for  data collect</label>
+
+             </div>
+           </div>
+
+         </div>
+         <div class="card-reveal">
+
+           <span class="card-title grey-text text-darken-4">Door Detail<i class="fas fa-eye-slash right"></i></span>
+           <div class="left">
+
+             <a id="removeFilter" class="btn-floating grey "> <i class="fas fa-eraser"></i></a>
+             <a id="doorOpen" class="btn-floating red"><i class="fas fa-door-open"></i></a>
+             <a id="doorClosed" class="btn-floating green"><i class="fas fa-door-closed"></i></a>
+           </div>
+           <script id="template_door" type="text/template">
+             <ul class="collection">
+
+               {{#doors}}
+               <li class="collection-item">
+                 <div class="row">
+                   <div class="col s12 l12 m12">
+                     <div class="col s12 l12 m12">
+                       <i class="far fa-calendar-alt"></i>
+                       date
+                       <span class=" badge   teal lighten-2">{{date}}</span>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <div class="col s6 m6 l6 offset-l3 offset-m3 offset-s3"><hr></div>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <i class="fas fa-key"></i>
+                       State
+                       <span class=" badge blue lighten-2 ">{{state }}</span>
+                     </div>
+                   </div>
+                 </div>
+               </li>
+               {{/doors}}
+             </ul>
+           </script>
+           <div id="mydoor" class="col s12 m12 l12"></div>
+
+         </div>
+
+       </div>
+     </div>
+     <div class=" col s12 m8 l5  offset-l2 offset-m2">
+       <div id="lightCard" class="card z-depth-5">
+         <div class="card-image waves-effect waves-block waves-light">
+           <img class="activator" src="/images/light.jpg">
+         </div>
+         <div class="card-content center-align">
+           <span class="card-title activator grey-text text-darken-4">Light State<i class="fas fa-eye right"></i></span>
+           <div class="row">
+             <div class="input-field  col s12 m10 l8 offset-l2 offset-m1">
+               <i class="fas fa-calendar prefix"></i>
+               <input type="text" id="datepicker3" class="datepicker center-align">
+
+               <label class="center-align" for="datepicker3">pick starting date for  data collect</label>
+
+             </div>
+           </div>
+         </div>
+         <div class="card-reveal">
+           <div class="row">
+             <span class="card-title grey-text text-darken-4">Light Detail<i class="fas fa-eye-slash right"></i></span>
+           </div>
+           <div class="row">
+             <div class="col s12 m10 l8">
+               <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Lux Filter</a>
+               <ul id='dropdown1' class='dropdown-content'>
+                 <li><a onclick="lightsLuxFilter('ALL')">all</a></li>
+                 <li><a onclick="lightsLuxFilter('SOLAR')">Solar</a></li>
+                 <li><a onclick="lightsLuxFilter('LAMP')">Lamp</a></li>
+                 <li><a onclick="lightsLuxFilter('OFF')">Off</a></li>
+                 <li><a onclick="lightsLuxFilter('UNKNOWN')">Unknown</a></li>
+               </ul>
+             </div>
+           </div>
+
+           <script id="template_light" type="text/template">
+             <ul class="collection">
+               {{#lights}}
+               <li class="collection-item">
+                 <div class="row">
+                   <div class="col s12 l12 m12">
+                     <div class="col s12 l12 m12">
+                       <i class="far fa-calendar-alt"></i>
+                       date
+                       <span class=" badge   teal lighten-2">{{date}}</span>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <div class="col s6 m6 l6 offset-l3 offset-m3 offset-s3"><hr></div>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <i class="fas fa-lightbulb"></i>
+                       Kind
+                       <span class=" badge yellow lighten-1 ">{{lux}}</span>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <div class="col s6 m6 l6 offset-l3 offset-m3 offset-s3"><hr></div>
+                     </div>
+                     <div class="col s12 l12 m12">
+                       <i class="fas fa-ruler-vertical"></i>
+                       Lev
+                       <span class=" badge green lighten-1 ">{{level}} Lux</span>
+                     </div>
+                   </div>
+                 </div>
+               </li>
+
+               {{/lights}}
+             </ul>
+           </script>
+           <div id="mylight" class="col s12 m12 l12"></div>
+
+         </div>
+
+       </div>
+     </div>
+   </div>
+   <div id="modal1" class="modal bottom-sheet">
+     <div class="modal-content">
+       <div class="row center-align ">
+         <h4 class="col s12 m12 l12 ">Device Controls</h4>
+       </div>
+
+       <ul class="collapsible">
+         <li>
+           <div class=" collapsible-header center-align"><i class="fas fa-cogs"></i>Set Device Option</div>
+           <div class="collapsible-body">
+             <div class="row">
+               <div class="col  s8 m8 l3 offset-s2 offset-l1 offset-m2 ">
+                 <h6 class="">Light autotune</h6>
+                 <div class="switch">
+                   <label class="">
+                     Off
+                     <input id="lightAutotune" type="checkbox">
+                     <span class="lever"></span>
+                     On
+                   </label>
+                 </div>
+               </div>
+               <hr class="col s6 offset-s3 hide-on-med-and-up">
+               <div class="col   s8 m8 l3 offset-s2 offset-l1 offset-m2  ">
+                 <h6 class="">Light Control</h6>
+                 <div class="switch">
+                   <label class="">
+                     Off
+                     <input id="lightControl" type="checkbox">
+                     <span class="lever"></span>
+                     On
+                   </label>
+                 </div>
+               </div>
+               <hr class="col s6 offset-s3 hide-on-med-and-up">
+               <div class="col   s8 m8 l3 offset-s2 offset-l1 offset-m2  ">
+                 <h6 class="">Door control</h6>
+                 <div class=" switch">
+                   <label class="">
+                     Off
+                     <input id="doorControl" type="checkbox">
+                     <span class="lever"></span>
+                     On
+                   </label>
+                 </div>
+               </div>
+             </div>
+             <div class="row">
+               <div class="input-field col l3  s12 m6  offset-l2 offset-m2 ">
+                 <input class="center-align col s4  m4  l3 offset-s4" type="number" name="roomIntervalUpdate" id="roomIntervalUpdate" value="60" min="1" max="240">
+                 <label class="center-align" for="roomIntervalUpdate">room  interval update (minutes)</label>
+               </div>
+               <div class="input-field col l3  s12 m8 offset-l2 offset-m2">
+                 <input class="center-align col s4  m4  l3 offset-s4 "  type="number" name="lightAutotuneLevel" id="lightAutotuneLevel" value="15" min="1" max="80">
+                 <label class="center-align"  for="lightAutotuneLevel">Light Autotune Level</label>
+               </div>
+             </div>
+
+             <a id="optionsUpdate" class=" waves-effect waves-light btn-small"><i class="fas fa-upload left"></i>Upload Options</a>
+           </div>
+         </li>
+         <li>
+           <div id="" class=" collapsible-header center-align"><i class="fas fa-lightbulb"></i>Set Light Panel</div>
+           <div class="collapsible-body">
+             <div class="row">
+
+               <div class="  col s12 m8 offset-m2 l5 offset-l1">
+                 <select class="" id="lightMode" onchange="onSelectMode()">
+                   <option class="" value="1">OFF</option>
+                   <option class="" value="2">On</option>
+                   <option class="" value="3">Alarm</option>
+                   <option class="" value="4">Custom</option>
+                 </select>
+                 <label class="">Light Mode</label>
+               </div>
+               <div id="lightLevelDiv" class="input-field col s12 m8 offset-m2 l5 offset-l1">
+                 <input class="center-align col s4  m4  l3 offset-s4 " type="number" name="lightLevel" id="lightLevel" value="0" min="0" max="255">
+                 <label class="" for="lightLevel">Light Level</label>
+               </div>
+             </div>
+             <div class="row">
+               <div id="rgbDiv" class="col s12 m12 l12 ">
+                 <div class="input-field col s12 m8 offset-m2  l4">
+                   <input class="center-align col s4  m4  l3 offset-s4 " type="number" name="red" id="red" value="0" min="0" max="255">
+                   <label class="" for="red">Red value 0-255</label>
+                 </div>
+                 <div class="input-field col s12 m8 offset-m2  l4">
+                   <input class="center-align col s4  m4  l3 offset-s4 " type="number" name="green" id="green" value="0" min="0" max="255">
+                   <label class="" for="green">Green value 0-255</label>
+                 </div>
+                 <div class="input-field  col s12 m8 offset-m2 l4">
+                   <input class="center-align col s4  m4  l3 offset-s4 " type="number" name="blue" id="blue" value="0" min="0" max="255">
+                   <label class="" for="blue">Blue value 0-255</label>
+                 </div>
+               </div>
+             </div>
+             <a  id="lightUpdate" class="waves-effect waves-light btn-small"><i class="fas fa-upload left"></i>update Light</a>
+           </div>
+       </ul>
+     </div>
+
+
+     <div class="modal-footer">
+       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close <i class="far fa-times-circle"></i></a>
+     </div>
+   </div>
+  <script
+          src="https://code.jquery.com/jquery-3.3.1.js"
+          integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+          crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+  <script src='/javascripts/index.js'></script>
+  </body>
+</html>
